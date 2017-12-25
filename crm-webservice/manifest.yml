@@ -1,0 +1,8 @@
+---
+applications:
+- name: crm-webservice
+  memory: 256M
+  instances: 1
+  host: dev01
+  domain: crm.mycorp.com
+  path: build/libs/crm-webservice-0.1.0.jar

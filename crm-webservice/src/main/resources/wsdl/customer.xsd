@@ -1,0 +1,104 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://mycorp.com/crm/schema/types" targetNamespace="http://mycorp.com/crm/schema/types"
+	elementFormDefault="qualified">
+	<xs:element name="getCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customerId" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customer" type="tns:Customer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customer" type="tns:Customer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="updated" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+			<xs:element name="firstName" type="xs:string" />
+			<xs:element name="lastName" type="xs:string" />
+			<xs:element name="dateOfBirth" type="xs:date" />
+			<xs:element name="emailAddress" type="xs:string" />
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="address"
+				nillable="true" type="tns:Address" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customerId" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customerId" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="deleted" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="Customer">
+		<xs:sequence>
+			<xs:element name="customerId" type="xs:int" />
+			<xs:element name="firstName" type="xs:string" />
+			<xs:element name="lastName" type="xs:string" />
+			<xs:element name="dateOfBirth" type="xs:date" />
+			<xs:element name="emailAddress" type="xs:string" />
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="address"
+				nillable="true" type="tns:Address" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Address">
+		<xs:sequence>
+			<xs:element name="addressType" type="tns:AddressType" />
+			<xs:element minOccurs="0" name="unitNumber" type="xs:string" />
+			<xs:element minOccurs="0" name="streetName" type="xs:string" />
+			<xs:element minOccurs="0" name="streetNumber" type="xs:string" />
+			<xs:element minOccurs="0" name="suburb" type="xs:string" />
+			<xs:element minOccurs="0" name="state" type="xs:string" />
+			<xs:element minOccurs="0" name="postCode" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="AddressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Residential" />
+			<xs:enumeration value="Postal" />
+			<xs:enumeration value="Work" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
