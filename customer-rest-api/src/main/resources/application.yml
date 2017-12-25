@@ -1,0 +1,24 @@
+server:
+  port: 8080
+endpoints:
+  crm-webservice-uri: http://localhost:9090/crm/ws/customer
+security:
+  header: Authorization
+  oauth2.resource.filter-order: 3
+  signing-key: Gtmdsmkqnff!
+  encoding-strength: 256
+  security-realm: mycorp
+  jwt:
+    client-id: apiuser
+    client-secret: Ferjsadgj1
+    grant-type: password
+    scope-read: read
+    scope-write: write
+    resource-ids: customerapi    
+---
+spring:
+  profiles: test
+server:
+  port: 8080
+endpoints:
+  crm-webservice-uri: http://localhost:8090/crm/ws/customer

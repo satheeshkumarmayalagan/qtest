@@ -1,0 +1,8 @@
+---
+applications:
+- name: customer-rest-api
+  memory: 256M
+  instances: 1
+  host: dev02
+  domain: crm.mycorp.com
+  path: build/libs/customer-rest-api-0.1.0.jar
