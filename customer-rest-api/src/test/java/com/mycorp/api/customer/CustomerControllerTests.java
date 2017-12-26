@@ -111,7 +111,7 @@ public class CustomerControllerTests {
 		this.mockMvc.perform(
 				post("/customer").header("Authorization", "Bearer " + accessToken).content(asJsonString(customer))
 						.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andDo(print()).andExpect(status().isOk());
+				.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.customerId").exists());
 	}
 
 	@Test
@@ -137,13 +137,13 @@ public class CustomerControllerTests {
 		this.mockMvc.perform(
 				put("/customer/1").header("Authorization", "Bearer " + accessToken).content(asJsonString(customer))
 						.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andDo(print()).andExpect(status().isOk());
+				.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.success").value(true));
 	}
 
 	@Test
 	public void shouldDeleteCustomerOk() throws Exception {
 		this.mockMvc.perform(delete("/customer/3").header("Authorization", "Bearer " + accessToken)).andDo(print())
-				.andExpect(status().isOk());
+				.andExpect(status().isOk()).andExpect(jsonPath("$.success").value(true));
 	}
 
 	@Test
