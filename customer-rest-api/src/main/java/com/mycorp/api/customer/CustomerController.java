@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycorp.api.BaseController;
 import com.mycorp.api.exception.ResourceNotFoundException;
+import com.mycorp.api.responses.CreateCustomerResponse;
+import com.mycorp.api.responses.SuccessCustomerResponse;
 import com.mycorp.model.customer.Customer;
 import com.mycorp.service.CustomerService;
 
@@ -45,7 +47,7 @@ public class CustomerController extends BaseController {
 	public ResponseEntity<?> createCustomer(@Valid @RequestBody Customer customer) {
 		log.info("CreateCustomer - {}", customer);
 		Integer customerId = customerService.createCustomer(customer);
-		return ResponseEntity.ok(customerId);
+		return ResponseEntity.ok(new CreateCustomerResponse(customerId));
 	}
 
 	@PreAuthorize("hasAuthority('ADMIN_USER')")
@@ -54,14 +56,14 @@ public class CustomerController extends BaseController {
 			@Valid @RequestBody Customer customer) {
 		log.info("UpdateCustomer - {}", customer);
 		customer.setCustomerId(customerId);
-		return ResponseEntity.ok(customerService.updateCustomer(customer));
+		return ResponseEntity.ok(new SuccessCustomerResponse(customerService.updateCustomer(customer)));
 	}
 
 	@PreAuthorize("hasAuthority('ADMIN_USER')")
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteCustomer(@PathVariable(value = "customerId", required = true) Integer customerId) {
 		log.info("deleteCustomer - {}", customerId);
-		return ResponseEntity.ok(customerService.deleteCustomer(customerId));
+		return ResponseEntity.ok(new SuccessCustomerResponse(customerService.deleteCustomer(customerId)));
 	}
 
 }
